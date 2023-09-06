@@ -9,16 +9,18 @@ export default function useDebounce(keyWord: string) {
 	});
 
 	useEffect(() => {
-		if (keyWord === '') return;
-
-		const timeoutId = setTimeout(() => {
-			dispatch({ type: 'requestIllness' });
-			getIllness(keyWord).then(response => {
-				console.info('api호출');
-				dispatch({ type: 'loadIllness', illnessList: response.data });
-			});
-		}, 500);
-		return () => clearTimeout(timeoutId);
+		if (keyWord === '') {
+			dispatch({ type: 'loadIllness', illnessList: [] });
+		} else if (keyWord) {
+			const timeoutId = setTimeout(() => {
+				dispatch({ type: 'requestIllness' });
+				getIllness(keyWord).then(response => {
+					console.info('api호출');
+					dispatch({ type: 'loadIllness', illnessList: response.data });
+				});
+			}, 500);
+			return () => clearTimeout(timeoutId);
+		}
 	}, [keyWord]);
 
 	return { illnessList, isLoading };

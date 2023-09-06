@@ -15,23 +15,36 @@ export default function SearchPage() {
 					<S.SearBox>
 						<h1>질환명 검색</h1>
 						<SearchBar keyWord={keyWord} setKeyWord={setKeyWord} />
-						{illnessList.length ? (
-							<>
-								<S.SearcContentsBox>
-									<S.SearchRecommedBox>추천 검색어</S.SearchRecommedBox>
-									{illnessList.map((illness: any) => (
-										<SearchContents key={illness.sickCd} illness={illness.sickNm} />
-									))}
-								</S.SearcContentsBox>
-							</>
+
+						{checkList(illnessList) ? (
+							<S.SearcContentsBox>
+								<S.SearchRecommedBox>추천 검색어</S.SearchRecommedBox>
+								{isLoading ? (
+									<h1>...Loading</h1>
+								) : (
+									<>
+										{illnessList.slice(0, 5).map((illness: any) => (
+											<SearchContents key={illness.sickCd} illness={illness.sickNm} />
+										))}
+									</>
+								)}
+							</S.SearcContentsBox>
 						) : (
-							<>
-								<S.SearcContentsBox>검색된 내용이 없습니다.</S.SearcContentsBox>
-							</>
+							<S.SearcContentsBox style={{ justifyContent: 'center' }}>
+								{checkKeyword(keyWord) ? '검색어를 입력해주세요' : '검색된 내용이 없습니다.'}
+							</S.SearcContentsBox>
 						)}
 					</S.SearBox>
 				</S.Wrapper>
 			</S.Container>
 		</>
 	);
+}
+
+function checkList(illnessList: any) {
+	return illnessList.length !== 0;
+}
+
+function checkKeyword(keyWord: string) {
+	return keyWord === '';
 }
