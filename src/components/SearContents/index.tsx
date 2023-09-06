@@ -1,9 +1,12 @@
 import * as S from '../../utils/styles/SearchContents.style';
 
-export default function SearchContents() {
+export default function SearchContents({ illness }: any) {
 	return (
 		<>
-			<S.SearcContentsBox>검색된 내용이 없습니다.</S.SearcContentsBox>
+			<S.SearcContents>
+				<S.Search />
+				{illness}
+			</S.SearcContents>
 		</>
 	);
 }
