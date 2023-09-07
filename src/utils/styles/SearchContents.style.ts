@@ -1,15 +1,25 @@
+import { SearchOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 
-export const SearcContentsBox = styled.div`
+export const SearcContents = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 
 	width: 90%;
-	height: 50%;
+	height: 20%;
 
-	border-radius: 15px;
-	background-color: #f5f2fc;
-	padding: 0px 20px;
+	font-size: 20px;
+
+	cursor: pointer;
+
+	:hover {
+		color: blue;
+	}
+`;
+
+export const Search = styled(SearchOutlined)`
+	font-size: 20px;
+	margin-right: 10px;
 `;

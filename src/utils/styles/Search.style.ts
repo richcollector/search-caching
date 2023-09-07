@@ -30,3 +30,29 @@ export const SearBox = styled.div`
 
 	border-radius: 20px;
 `;
+
+export const SearcContentsBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	width: 90%;
+	height: 50%;
+
+	border-radius: 15px;
+	background-color: #f5f2fc;
+	padding: 20px;
+`;
+
+export const SearchRecommedBox = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
+	font-size: 14px;
+
+	width: 90%;
+	height: 10%;
+`;
