@@ -1,3 +1,5 @@
+import CacheIllnessRepository from '../interface/CacheIllnessRepository';
+
 export default function illnessReducer(state: any, action: any) {
 	switch (action.type) {
 		case 'requestIllness': {

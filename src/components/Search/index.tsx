@@ -15,7 +15,6 @@ export default function Search() {
 	};
 
 	const KeyArrow = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		console.log('keyCode', event.keyCode);
 		if (event.key === 'ArrowDown') {
 			if (isComposing) return;
 			const lastIndex = illnessList.length - 1;
