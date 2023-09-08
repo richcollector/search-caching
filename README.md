@@ -109,6 +109,8 @@ $ npm start
 - 캐싱
   - `localStorage vs sessionStorage vs cacheStorage vs state`
   - 로컬스토리지는 용량에 제한이있어, 대용량 데이터에 부적합하다고 생각하고, 세션스토리지는 브라우저가 사라지면 값이 사라지기 때문에 선택을 하지 않았습니다. state 변수는 새로고침 시 변수의 값이 사라져 사용성이 떨어져 캐쉬 스토리지가 용량면에서나 다른 storage들이 가지고 있는 단점을 극복한 방법으로 크롬에서도 추천하는 방법이라 선택을하게 되었습니다. class형태의 interface로 만들어 접근하기 쉽게 만들었습니다.
+  - `expire time`
+  - header에 Expires: `${EXPIRATION_TIME}`을 넣는 방식으로 구현하여, setInterval로 매 시간마다 체크를 하여 시간이 만료된 것을 삭제하는 방식으로 구현하였습니다. 검색 시에 만료된 것을 삭제 할 수도 있었지만, 시간을 설정한 이유가 매번 storage를 관리하기 위함이라 생각하여 채택하였습니다.
 >```jsx
 >export default class CacheIllnessRepository {
 >	async set(cacheName: string, url: string, illnessList: any) {
