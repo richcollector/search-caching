@@ -32,7 +32,6 @@ export default class CacheIllnessRepository {
 	}
 
 	async remove() {
-		console.log('remove호출');
 		const cacheNames = await caches.keys();
 		const currentTime = new Date(Date.now()).getTime();
 		for (const cacheName of cacheNames) {
@@ -41,7 +40,6 @@ export default class CacheIllnessRepository {
 			const cacheExpirationTime = new Date(cachedResponse?.headers.get('Expires') ?? '').getTime();
 
 			if (cacheExpirationTime < currentTime) {
-				console.log(cacheName, cacheExpirationTime, currentTime);
 				await cacheStorage.delete(cacheName);
 				console.info(`"${cacheName}" 만료되어 삭제되었습니다.`);
 			}
