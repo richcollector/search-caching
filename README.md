@@ -38,15 +38,13 @@ $ npm install
 $ npm start
 ```
 
-### 배포 링크
+## 동작 영상
 
-✌️ 개인의 서버에 올린 작업물로 2023년 10월부터는 접속이 불가 할 수 있는 점 양해바랍니다.
+- 검색
+  <img width='800px' src='https://github.com/richcollector/search-caching/assets/104312779/5a9e7b16-59cb-41ef-8cdf-784590d9fdbe' alt='search' />
 
-[배포 링크 - search-caching]()
-
-### 동작 영상
-
-등록예정
+- 캐싱
+  <img width='800px' src='https://github.com/richcollector/search-caching/assets/104312779/2a4981e4-4161-45ff-9ff3-c52456659762' alt='caching' />
 
 ## 🔥 과제 수행 방식
 
@@ -54,7 +52,17 @@ $ npm start
 
 ## 🔧 기술 스택
 
-등록예정
+### Config
+
+<img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white"> <img src="https://img.shields.io/badge/husky-FF4088?style=for-the-badge&logo=hugo&logoColor=white">
+
+### Development
+
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+
+### Library
+
+<img src="https://img.shields.io/badge/scss-CC6699?style=for-the-badge&logo=sass&logoColor=white"> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/>
 
 ## ✅ 컨벤션
 
