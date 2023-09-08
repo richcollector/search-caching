@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+## 📚 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 목표
+  검색창 구현 + 검색어 추천 기능 구현 + 캐싱 기능 구현
 
-## Available Scripts
+- 참고자료<br/>
+  [assignment-api](https://github.com/walking-sunset/assignment-api)
 
-In the project directory, you can run:
+- 구현목표
+  아래 사이트의 검색영역을 클론하기<br/>
+  [한국임상정보](https://clinicaltrialskorea.com/)
 
-### `npm start`
+- 세부목표
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  - 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    - 검색어가 없을 시 “검색어 없음” 표출
 
-### `npm test`
+  - API 호출별로 로컬 캐싱 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    - 캐싱 기능을 제공하는 라이브러리 사용 금지(React-Query 등)
+    - 캐싱을 어떻게 기술했는지에 대한 내용 README에 기술
+    - expire time을 구현할 경우 가산점
 
-### `npm run build`
+  - 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    - README에 전략에 대한 설명 기술
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - API를 호출할 때 마다 console.info("calling api") 출력을 통해 콘솔창에서 API 호출 횟수 확인이 가능하도록 설정
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - 키보드만으로 추천 검색어들로 이동 가능하도록 구현
+    - 사용법 README에 기술
 
-### `npm run eject`
+## 🚀실행 방법
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```jsx
+$ npm install
+$ npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 배포 링크
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+✌️ 개인의 서버에 올린 작업물로 2023년 10월부터는 접속이 불가 할 수 있는 점 양해바랍니다.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[배포 링크 - search-caching]()
 
-## Learn More
+### 동작 영상
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+등록예정
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔥 과제 수행 방식
+
+등록예정
+
+## 🔧 기술 스택
+
+등록예정
+
+## ✅ 컨벤션
+
+- 브랜치 형식
+  ```jsx
+  main | _develop | (_feature / a) | (_feature / b) | (_feature / c);
+  ```
+- 커밋 컨벤션
+  | feat | 새로운 기능을 추가할 경우 |
+  | --- | --- |
+  | fix | 버그를 고친 경우 |
+  | docs | 문서를 수정한 경우 |
+  | style | 코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우 |
+  | refactor | 프로덕션 코드 리팩토링 |
+  | chore | 기타 변경사항 |
+  | test | test 관련한 코드의 추가, 수정한 경우 |
+  | design | CSS 등 사용자 UI 디자인 변경 |
+  | comment | 필요한 주석 추가 및 변경 |
+  | rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
+  | remove | 파일을 삭제하는 작업만 수행한 경우 |
+  | !HOTFIX | 급하게 치명적인 버그를 고쳐야하는 경우 |
