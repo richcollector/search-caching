@@ -40,10 +40,10 @@ $ npm start
 
 ## 동작 영상
 
-- 검색
+- 검색<br/>
   <img width='600px' src='https://github.com/richcollector/search-caching/assets/104312779/5a9e7b16-59cb-41ef-8cdf-784590d9fdbe' alt='search' />
 
-- 캐싱
+- 캐싱<br/>
   <img width='600px' src='https://github.com/richcollector/search-caching/assets/104312779/2a4981e4-4161-45ff-9ff3-c52456659762' alt='caching' />
 
 ## 🔥 과제 수행 방식
