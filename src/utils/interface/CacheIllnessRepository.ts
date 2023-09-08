@@ -1,10 +1,14 @@
+import { ONE_MINUTE } from '../constants/constants';
+
 export default class CacheIllnessRepository {
 	async set(cacheName: string, url: string, illnessList: any) {
+		const EXPIRATION_TIME = new Date(Date.now() + ONE_MINUTE);
 		const cacheStorage = await caches.open(cacheName);
 		const init = {
 			headers: {
 				'Content-Type': 'application/json, application/json; charset=utf-8',
 				'content-length': '2',
+				Expires: `${EXPIRATION_TIME}`,
 			},
 		};
 		const clonedResponse = new Response(JSON.stringify(illnessList), init);
@@ -27,10 +31,20 @@ export default class CacheIllnessRepository {
 		}
 	}
 
-	async removeAll() {
+	async remove() {
+		console.log('remove호출');
 		const cacheNames = await caches.keys();
-		await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+		const currentTime = new Date(Date.now()).getTime();
+		for (const cacheName of cacheNames) {
+			const cacheStorage = await caches.open(cacheName);
+			const cachedResponse = await cacheStorage.match(cacheName);
+			const cacheExpirationTime = new Date(cachedResponse?.headers.get('Expires') ?? '').getTime();
 
-		console.info('모든 캐시가 삭제되었습니다.');
+			if (cacheExpirationTime < currentTime) {
+				console.log(cacheName, cacheExpirationTime, currentTime);
+				await cacheStorage.delete(cacheName);
+				console.info(`"${cacheName}" 만료되어 삭제되었습니다.`);
+			}
+		}
 	}
 }

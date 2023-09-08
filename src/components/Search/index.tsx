@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import useDebounce from '../../utils/hooks/useDebounce';
 import SearchContents from './SearContents';
-import * as SearchBar from '../../utils/styles/SearchBar.style';
 import * as S from '../../utils/styles/Search.style';
 
 export default function Search() {
@@ -17,29 +16,36 @@ export default function Search() {
 	const KeyArrow = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'ArrowDown') {
 			if (isComposing) return;
-			const lastIndex = illnessList.length - 1;
+			const lastIndex = illnessList.length < 4 ? illnessList.length - 1 : 5;
+
 			if (selectedIndex === lastIndex) {
 				return setSelectedIndex(0);
 			}
+
 			if (selectedIndex < lastIndex) {
 				setSelectedIndex(prev => prev + 1);
 			}
 		}
+
 		if (event.key === 'ArrowUp') {
-			const lastIndex = illnessList.length - 1;
+			const lastIndex = illnessList.length < 4 ? illnessList.length - 1 : 5;
 			if (selectedIndex === 0) {
 				return setSelectedIndex(lastIndex);
 			} else {
 				setSelectedIndex(prev => prev - 1);
 			}
 		}
+
+		if (event.key === 'Enter') {
+			setKeyWord(illnessList[selectedIndex].sickNm);
+		}
 	};
 
 	return (
 		<>
-			<SearchBar.Searchbar>
-				<SearchBar.Search />
-				<SearchBar.SearchbarInput
+			<S.Searchbar>
+				<S.Search />
+				<S.SearchbarInput
 					autoFocus
 					value={keyWord}
 					onChange={searchKeyWord}
@@ -47,7 +53,7 @@ export default function Search() {
 					onCompositionStart={() => setIsComposing(true)}
 					onCompositionEnd={() => setIsComposing(false)}
 				/>
-			</SearchBar.Searchbar>
+			</S.Searchbar>
 			{checkList(illnessList, keyWord, isLoading, selectedIndex)}
 		</>
 	);
