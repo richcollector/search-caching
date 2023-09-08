@@ -13,17 +13,14 @@
 - 세부목표
 
   - 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
-
     - 검색어가 없을 시 “검색어 없음” 표출
 
   - API 호출별로 로컬 캐싱 구현
-
     - 캐싱 기능을 제공하는 라이브러리 사용 금지(React-Query 등)
     - 캐싱을 어떻게 기술했는지에 대한 내용 README에 기술
     - expire time을 구현할 경우 가산점
 
   - 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
-
     - README에 전략에 대한 설명 기술
 
   - API를 호출할 때 마다 console.info("calling api") 출력을 통해 콘솔창에서 API 호출 횟수 확인이 가능하도록 설정
@@ -77,8 +74,8 @@ $ npm start
   >```
 
 - 추천 검색어 이동
-- useRef vs useState
-  - useState를 사용하여 추천검색어 데이터 배열의 index 이동으로 구현하는 법을 선택. 이유는 ref제어를 하게 될 경우 input창과 검색어 창을 제어하게되어 번거롭게 느껴짐. 키보드 이벤트를 이용해 onKeyDown 함수를 구현하여 ArrowUp, ArrowDown, Enter 이벤트별로 이벤트 처리하도록 구현.
+  - useRef vs useState
+    - useState를 사용하여 추천검색어 데이터 배열의 index 이동으로 구현하는 법을 선택. 이유는 ref제어를 하게 될 경우 input창과 검색어 창을 제어하게되어 번거롭게 느껴짐. 키보드 이벤트를 이용해 onKeyDown 함수를 구현하여 ArrowUp, ArrowDown, Enter 이벤트별로 이벤트 처리하도록 구현.
 > ```jsx
 >	const KeyArrow = (event: React.KeyboardEvent<HTMLInputElement>) => {
 >		if (event.key === 'ArrowDown') {
@@ -110,8 +107,8 @@ $ npm start
 > ```
 
 - 캐싱
-- localStorage vs sessionStorage vs cacheStorage vs state
-  - 로컬스토리지는 용량에 제한이있어, 대용량 데이터에 부적합하다고 생각하고, 세션스토리지는 브라우저가 사라지면 값이 사라지기때문에 선택을 하지 않았습니다. state 변수는 새로고침 시 변수의 값이 사라져 사용성이 떨어져 캐쉬 스토리지가 용량면에서나 다른 storage들이 가지고 있는 단점을 극복한 방법으로 크롬에서도 추천하는 방법이라 선택을하게 되었습니다. class형태의 interface로 만들어 접근하기 쉽게 만들었습니다.
+  - localStorage vs sessionStorage vs cacheStorage vs state
+    - 로컬스토리지는 용량에 제한이있어, 대용량 데이터에 부적합하다고 생각하고, 세션스토리지는 브라우저가 사라지면 값이 사라지기때문에 선택을 하지 않았습니다. state 변수는 새로고침 시 변수의 값이 사라져 사용성이 떨어져 캐쉬 스토리지가 용량면에서나 다른 storage들이 가지고 있는 단점을 극복한 방법으로 크롬에서도 추천하는 방법이라 선택을하게 되었습니다. class형태의 interface로 만들어 접근하기 쉽게 만들었습니다.
 >```jsx
 >export default class CacheIllnessRepository {
 >	async set(cacheName: string, url: string, illnessList: any) {
