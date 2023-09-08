@@ -48,7 +48,118 @@ $ npm start
 
 ## 🔥 과제 수행 방식
 
-등록예정
+- 검색
+  - 디바운싱 (Debouncing) vs 쓰로틀링 (Throttling)
+  >디바운싱은 연속적인 이벤트 중 마지막 이벤트 발생 이후 일정 시간(대기 시간)이 지나야 작업이 실행되도록 하는 기술. 예를 들어 검색창에 입력이 있을 때, 디바운싱을 사용하면 사용자가 입력을 완료하기 전까지 API 호출을 지연시킬 수 있어 선택을 하게 되었습니다.
+  >```jsx
+  >	useEffect(() => {
+		if (keyWord === '') {
+			dispatch({ type: 'loadIllness', illnessList: [] });
+		} else if (keyWord) {
+			const timeoutId = setTimeout(() => {
+				dispatch({ type: 'requestIllness' });
+
+				CacheRepository.get(keyWord, keyWord).then(cacheData => {
+					if (cacheData) {
+						dispatch({ type: 'loadIllness', illnessList: cacheData });
+					} else if (cacheData === false) {
+						getIllness(keyWord).then(response => {
+							console.info('api호출');
+							CacheRepository.set(keyWord, keyWord, response.data);
+							dispatch({ type: 'loadIllness', illnessList: response.data, keyWord });
+						});
+					}
+				});
+			}, 500);
+			return () => clearTimeout(timeoutId);
+		}
+	}, [keyWord]);
+  >```
+
+- 추천 검색어 이동
+- useRef vs useState
+> useState를 사용하여 추천검색어 데이터 배열의 index 이동으로 구현하는 법을 선택. 이유는 ref제어를 하게 될 경우 input창과 검색어 창을 제어하게되어 번거롭게 느껴짐. 키보드 이벤트를 이용해 onKeyDown 함수를 구현하여 ArrowUp, ArrowDown, Enter 이벤트별로 이벤트 처리하도록 구현.
+> ```jsx
+>	const KeyArrow = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === 'ArrowDown') {
+			if (isComposing) return;
+			const lastIndex = illnessList.length < 4 ? illnessList.length - 1 : 5;
+
+			if (selectedIndex === lastIndex) {
+				return setSelectedIndex(0);
+			}
+
+			if (selectedIndex < lastIndex) {
+				setSelectedIndex(prev => prev + 1);
+			}
+		}
+
+		if (event.key === 'ArrowUp') {
+			const lastIndex = illnessList.length < 4 ? illnessList.length - 1 : 5;
+			if (selectedIndex === 0) {
+				return setSelectedIndex(lastIndex);
+			} else {
+				setSelectedIndex(prev => prev - 1);
+			}
+		}
+
+		if (event.key === 'Enter') {
+			setKeyWord(illnessList[selectedIndex].sickNm);
+		}
+	};
+> ```
+
+- 캐싱
+- localStorage vs sessionStorage vs cacheStorage vs state
+- 로컬스토리지는 용량에 제한이있어, 대용량 데이터에 부적합하다고 생각하고, 세션스토리지는 브라우저가 사라지면 값이 사라지기때문에 선택을 하지 않았습니다. state 변수는 새로고침 시 변수의 값이 사라져 사용성이 떨어져 캐쉬 스토리지가 용량면에서나 다른 storage들이 가지고 있는 단점을 극복한 방법으로 크롬에서도 추천하는 방법이라 선택을하게 되었습니다. class형태의 interface로 만들어 접근하기 쉽게 만들었습니다.
+>```jsx
+>export default class CacheIllnessRepository {
+	async set(cacheName: string, url: string, illnessList: any) {
+		const EXPIRATION_TIME = new Date(Date.now() + ONE_MINUTE);
+		const cacheStorage = await caches.open(cacheName);
+		const init = {
+			headers: {
+				'Content-Type': 'application/json, application/json; charset=utf-8',
+				'content-length': '2',
+				Expires: `${EXPIRATION_TIME}`,
+			},
+		};
+		const clonedResponse = new Response(JSON.stringify(illnessList), init);
+		await cacheStorage.put(url, clonedResponse);
+		return;
+	}
+
+	async get(cacheName: string, url: string) {
+		try {
+			const cacheStorage = await caches.open(cacheName);
+			const cachedResponse = await cacheStorage.match(url);
+
+			if (cachedResponse === undefined) {
+				return false;
+			}
+
+			return await cachedResponse.json();
+		} catch (error) {
+			return false;
+		}
+	}
+
+	async remove() {
+		const cacheNames = await caches.keys();
+		const currentTime = new Date(Date.now()).getTime();
+		for (const cacheName of cacheNames) {
+			const cacheStorage = await caches.open(cacheName);
+			const cachedResponse = await cacheStorage.match(cacheName);
+			const cacheExpirationTime = new Date(cachedResponse?.headers.get('Expires') ?? '').getTime();
+
+			if (cacheExpirationTime < currentTime) {
+				await cacheStorage.delete(cacheName);
+				console.info(`"${cacheName}" 만료되어 삭제되었습니다.`);
+			}
+		}
+	}
+}
+>```
 
 ## 🔧 기술 스택
 
